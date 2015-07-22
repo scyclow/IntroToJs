@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>What is Truth?</title>
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    #answer-container {
+      width: 100%
+    }
+
+    .answer {
+      height: 70px;
+      width: 100%;
+      border: 1px solid #05B1E5;
+      text-align: center;
+      vertical-align: middle;
+      font-family: Helvetica, sans-serif;
+      font-size: 20px;
+    }
+
+    .answer:hover {
+      cursor: crosshair;
+      background-color: #05B1E5;
+      color: #ffffff;
+    }
+
+    .correct {
+      background-color: #05E50D;
+    }
+
+    .incorrect {
+      background-color: #FA1313;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="answer-container">
+    <div id="answer-0" class="answer"></div>
+    <div id="answer-1" class="answer"></div>
+    <div id="answer-2" class="answer"></div>
+    <div id="answer-3" class="answer"></div>
+    <div id="answer-4" class="answer"></div>
+    <div id="answer-5" class="answer"></div>
+    <div id="answer-6" class="answer"></div>
+    <div id="answer-7" class="answer"></div>
+    <div id="answer-8" class="answer"></div>
+    <div id="answer-9" class="answer"></div>
+    <div id="answer-10" class="answer"></div>
+    <div id="answer-11" class="answer"></div>
+    <div id="answer-12" class="answer"></div>
+    <div id="answer-13" class="answer"></div>
+    <div id="answer-14" class="answer"></div>
+    <div id="answer-15" class="answer"></div>
+    <div id="answer-16" class="answer"></div>
+    <div id="answer-17" class="answer"></div>
+    <div id="answer-18" class="answer"></div>
+    <div id="answer-19" class="answer"></div>
+  </div>
+</body>
+
+<script type="text/javascript">
+  // Replace each string with what the question EVALUATES TO
+
+  var answers = [ 
+    {
+      question: !true,
+      answer:   'answer here'
+    }, {
+      question: !!true,
+      answer:   'answer here'
+    }, {
+      question: !!!!0,
+      answer:   'answer here'
+    }, {
+      question: false || true,
+      answer:   'answer here'
+    }, {
+      question: false && true,
+      answer:   'answer here'
+    }, {
+      question: true && 'false',
+      answer:   'answer here'
+    }, {
+      question: undefined || true,
+      answer:   'answer here'
+    }, {
+      question: false && 73,
+      answer:   'answer here'
+    }, {
+      question: false || 73,
+      answer:   'answer here'
+    }, {
+      question: 73 || false,
+      answer:   'answer here'
+    }, {
+      question: 'false' == false,
+      answer:   'answer here'
+    }, {
+      question: 'false' === false,
+      answer:   'answer here'
+    }, {
+      question: true !== false,
+      answer:   'answer here'
+    }, {
+      question: (true + true) * 2,
+      answer:   'answer here'
+    }, {
+      question: !![],
+      answer:   'answer here'
+    }, {
+      question: [1, 2 + '2', 3 + 3] || null,
+      answer:   'answer here'
+    }, {
+      question: [1, 2, 3][1] || null,
+      answer:   'answer here'
+    }, {
+      question: { thisMightBe: false } || false,
+      answer:   'answer here'
+    }, {
+      question: true && (null || 0) || (false && !!(33 !== '33')) || (NaN && '' || undefined),
+      answer:   'answer here'
+    }, {
+      question: !!!(!!(true === true) && !(!(!(true) || (!!true && !!!!true)))),
+      answer:   'answer here'
+    }
+  ];
+
+  answers.forEach(function(answer, i) {
+    var answerId = 'answer-' + i;
+    var $answer = document.getElementById(answerId);
+
+    if (answer.question === answer.answer) {
+      $answer.innerHTML = answer.answer + ' is correct!';
+      $answer.className += ' correct';
+    } else {
+      $answer.innerHTML = answer.answer + ' is incorrect!';
+      $answer.className += ' incorrect';
+    }
+  });
+</script>
+
+</html>
