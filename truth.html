@@ -99,10 +99,10 @@
       question: 73 || false,
       answer:   'answer here'
     }, {
-      question: 'false' == false,
+      question: '73' == 73,
       answer:   'answer here'
     }, {
-      question: 'false' === false,
+      question: '73' === 73,
       answer:   'answer here'
     }, {
       question: true !== false,
@@ -114,13 +114,13 @@
       question: !![],
       answer:   'answer here'
     }, {
-      question: [1, 2 + '2', 3 + 3] || null,
+      question: [1, 2 + '2', 3 + 3][1],
       answer:   'answer here'
     }, {
-      question: [1, 2, 3][1] || null,
+      question: [1, [2, 3, 4, [5, 6, [7]], [8, 9]], 10][1][3][2][0],
       answer:   'answer here'
     }, {
-      question: { thisMightBe: false } || false,
+      question: { thisMightBe: null }['thisMightBe'] || false,
       answer:   'answer here'
     }, {
       question: true && (null || 0) || (false && !!(33 !== '33')) || (NaN && '' || undefined),
@@ -135,11 +135,13 @@
     var answerId = 'answer-' + i;
     var $answer = document.getElementById(answerId);
 
+    $answer.innerHTML = i + '. ';
+
     if (answer.question === answer.answer) {
-      $answer.innerHTML = answer.answer + ' is correct!';
+      $answer.innerHTML += (answer.answer + ' is correct!');
       $answer.className += ' correct';
     } else {
-      $answer.innerHTML = answer.answer + ' is incorrect!';
+      $answer.innerHTML += (answer.answer + ' is incorrect!');
       $answer.className += ' incorrect';
     }
   });
