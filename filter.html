@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Filter</title>
+  <style type="text/css">
+    /* TODO: add styling */
+  </style>
+</head>
+
+<body>
+  <form id="movie-form">
+    <input type="text" id="filter-input">
+    <input type="submit" value="filter" id="form-submit">
+  </form>
+
+  Total Gross: <span id="total-gross"></span>
+
+  Filtered Movies:
+  <ul id="movie-results"></ul>
+</body>
+
+<script type="text/javascript">
+  // If you are confused about any of this: 
+    // drop a debugger inside the confusing function,
+    // open up Chrome dev tools (option + cmd + i),
+    // reload & interact with the page,
+    // use the console to play around with the code at the point where it stopped running.
+
+  // Get references to all important html elements
+  var movieForm    = document.getElementById('movie-form');
+  var filterInput  = document.getElementById('filter-name');
+  var movieResults = document.getElementById('movie-results');
+  var totalGross   = document.getElementById('total-gross');
+
+  // When the movie form is submitted, run the filterMovies function
+  movieForm.addEventListener('submit', filterMovies);
+
+  // The event listener implicitly passes an event object to this function
+  function filterMovies(event) {
+    // Prevents the form from clearing
+    event.preventDefault();
+
+    // Simulate a call to the server
+    var movieList = getMovieData().data;
+    // Extracts the value from the filterInput input box
+    var filterValue = filterInput.value;
+
+    var parsedMovieList = parseMovies(movieList, filterValue);
+    updateTotalGross(parsedMovieList);
+    displayMovieResults(parsedMovieList);
+  }
+
+  // Data that "came back from the server"
+  function getMovieData() {
+    var response = {
+      status: 200,
+      data: [
+        { name: 'The Godfather', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 },
+        { name: '', gross: 0 }
+      ]
+    };
+
+    return response;
+  }
+
+  function parseMovies(movies, filterBy) {
+    // return all movies if filterBy is a empty
+    if (!filterBy) {
+      // note: calling return exits us out of the function at this point
+      return movies;
+    }
+
+    var parsed = [];
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    return parsed;
+  }
+
+  function updateTotalGross(results) {
+    var updatedTotalGross = 0;
+    //
+    //
+    //
+    //
+    //
+    // TODO: write a function that takes a number, returns a nicely formatted currency string.
+
+    // updates the content of the total gross <div>
+    totalGross.innerHTML = updatedTotalGross;
+  }
+
+  function displayMovieResults(results) {
+    clearMovieResults();
+    // for each result
+    //  addMovieResultToList(result)
+    //
+    //
+    //
+    //
+    //
+  }
+
+  function clearMovieResults() {
+    // Takes the movieResults <ul>, removes all of it's child HTML elements
+    movieResults.innerHTML = "";
+  }
+
+  function addMovieResultToList(movie) {
+    // creates a new <li> element
+    var newMovie = document.createElement('li');
+    // sets the inner html text to the movie name
+    newMovie.innerHTML = movie.name;
+
+    // appends the new movie to the end of movieResults <ul>
+    movieResults.appendChild(newMovie);
+  }
+</script>
+
+</html>
