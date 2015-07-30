@@ -9,76 +9,143 @@
 </head>
 
 <body>
+  <!-- TODO: add a dropdown menu so user can filter by properties other than movie name -->
   <form id="movie-form">
     <input type="text" id="filter-input">
     <input type="submit" value="filter" id="form-submit">
   </form>
 
-  Total Gross: <span id="total-gross"></span>
+  Total Gross: <div id="total-gross"></div>
 
   Filtered Movies:
+  <br>
   <ul id="movie-results"></ul>
 </body>
 
+<!--
+  DEBUGGING STRATEGIES:
+  If you get an error message, READ THE ERROR.
+  If you are confused about any of this code at any point: 
+    - drop a debugger inside the confusing function.
+    - open up Chrome dev tools (option + cmd + i).
+    - reload & interact with the page.
+    - use the console to play around with the code at the point where it stopped running.
+    - if the console does not immediately come up, press esc. 
+-->
 <script type="text/javascript">
-  // If you are confused about any of this: 
-    // drop a debugger inside the confusing function,
-    // open up Chrome dev tools (option + cmd + i),
-    // reload & interact with the page,
-    // use the console to play around with the code at the point where it stopped running.
-
   // Get references to all important html elements
-  var movieForm    = document.getElementById('movie-form');
-  var filterInput  = document.getElementById('filter-name');
-  var movieResults = document.getElementById('movie-results');
-  var totalGross   = document.getElementById('total-gross');
+  var $movieForm    = document.getElementById('movie-form');
+  var $filterInput  = document.getElementById('filter-input');
+  var $movieResults = document.getElementById('movie-results');
+  var $totalGross   = document.getElementById('total-gross');
+  // TODO: Dropdown menu
 
   // When the movie form is submitted, run the filterMovies function
-  movieForm.addEventListener('submit', filterMovies);
-
+  $movieForm.addEventListener('submit', filterMovies);
   // The event listener implicitly passes an event object to this function
   function filterMovies(event) {
-    // Prevents the form from clearing
+    // Prevents the form from clearing after clicking submit button
     event.preventDefault();
 
     // Simulate a call to the server
     var movieList = getMovieData().data;
-    // Extracts the value from the filterInput input box
-    var filterValue = filterInput.value;
+    // Extracts the value from the $filterInput input box
+    var filterValue = $filterInput.value;
 
     var parsedMovieList = parseMovies(movieList, filterValue);
-    updateTotalGross(parsedMovieList);
-    displayMovieResults(parsedMovieList);
+    renderData(parsedMovieList);
+  }
+
+  // Even though this is a relatively simple procedure, it's worth pulling out into it's own function because we use this functionality again later.
+  function renderData(data) {
+    updateTotalGross(data);
+    displayMovieResults(data);
   }
 
   // Data that "came back from the server"
+  // Some of it is missing or messy. Pretend you can't correct it by hand.
+
+  // This is not a very accurate simulation of getting data from a server.
+  // You would also probably want to store this data instead of calling this function multiple times.
+  // (But don't worry about any of this yet).
   function getMovieData() {
     var response = {
       status: 200,
       data: [
-        { name: 'The Godfather', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 },
-        { name: '', gross: 0 }
+        {
+          name: 'The Godfather',
+          year: 1972,
+          director: 'Francis Ford Coppola',
+          gross: 245.1
+        }, {
+          name: 'Star Wars',
+          year: 1977,
+          director: 'George Lucas',
+          gross: 775400000
+        }, {
+          name: 'Gone With The Wind',
+          year: 1979,
+          director:,
+          gross: 400.2
+        }, {
+          name: 'The Godfather Part II',
+          year: 1974,
+          director: 'Francis Ford Coppola'
+        }, {
+          name: 'Titanic',
+          year: 1997,
+          director: 'James Cameron',
+          gross: '2186.8'
+        }, {
+          name: 'Raiders of the Lost Arc',
+          year: 1983,
+          director: 'Steven Spielberg',
+          gross: 389.9
+        }, {
+          name: 'Batman',
+          year: 1989,
+          director: 'Tim Burton',
+          gross: 411.3
+        }, {
+          name: 'The Dark Knight',
+          year: 2008,
+          director: 'Christopher Nolan',
+          gross: 1004.6
+        }, {
+          name: 'The Dark Knight Rises',
+          year: 2012,
+          director: 'Christopher Nolan',
+          gross: '1084.4'
+        }, {
+          name: 'Kung Fu Panda 2',
+          year: 2011,
+          gross: 665.7
+        }
       ]
     };
 
     return response;
   }
 
+  //////////////
+  // TODO: extend parseMovies so it can filter by the property specified in the dropdown menu.
+  // It might be a good idea to split each filter out into it's own function, and then write a seperate function to determine which filter to use.
+  //////////////
+
+  // movies -> Array of movie Objects
+  // filterBy -> String
   function parseMovies(movies, filterBy) {
     // return all movies if filterBy is a empty
     if (!filterBy) {
-      // note: calling return exits us out of the function at this point
+      // note: when you call return, it stops the function at this point.
       return movies;
     }
 
     var parsed = [];
+    //***********************
+    // 1. WRITE A FOR-LOOP TO FILTER movies BY THEIR NAME (filterBy)
+    // 2. SET THE FILTERED LIST EQUAL TO parsed
+    // hint: use the stringContains function, defined below
     //
     //
     //
@@ -89,23 +156,42 @@
     return parsed;
   }
 
+  // str, subString -> String
+  // returns a boolean value (true/false)
+  function stringContains(str, subString) {
+    // Converts the string to lowercase.
+    var input = str.toLowerCase();
+
+    // Don't worry about this. But if you're interested...
+    // http://www.w3schools.com/jsref/jsref_indexof.asp
+    return input.indexOf(subString) > -1;
+  }
+
+  // results -> Array of movie Objects
   function updateTotalGross(results) {
     var updatedTotalGross = 0;
+
+    //***********************
+    // WRITE A FOR-LOOP THAT SUMS UP THE gross OF EACH RESULT IN results
     //
     //
     //
     //
     //
+
     // TODO: write a function that takes a number, returns a nicely formatted currency string.
 
     // updates the content of the total gross <div>
-    totalGross.innerHTML = updatedTotalGross;
+    $totalGross.innerHTML = updatedTotalGross;
   }
 
+  // results -> Array of movie Objects
   function displayMovieResults(results) {
     clearMovieResults();
-    // for each result
-    //  addMovieResultToList(result)
+
+    //***********************
+    // WRITE A FOR-LOOP THAT CALLS addMovieResultToList ON EACH RESULT IN results
+    //
     //
     //
     //
@@ -114,19 +200,39 @@
   }
 
   function clearMovieResults() {
-    // Takes the movieResults <ul>, removes all of it's child HTML elements
-    movieResults.innerHTML = "";
+    // Takes the $movieResults <ul>, removes all of it's child HTML elements
+    $movieResults.innerHTML = "";
   }
 
   function addMovieResultToList(movie) {
     // creates a new <li> element
     var newMovie = document.createElement('li');
-    // sets the inner html text to the movie name
-    newMovie.innerHTML = movie.name;
+    var name = movie.name;
+    // TODO: use currency formatter to format this number
+    var gross = movie.gross;
 
-    // appends the new movie to the end of movieResults <ul>
-    movieResults.appendChild(newMovie);
+    // TODO: add year and director data
+    // sets the inner html text to the movie name
+    newMovie.innerHTML = name + ' -- ' + gross;
+
+    // appends the new movie to the end of $movieResults <ul>
+    $movieResults.appendChild(newMovie);
   }
+
+  // This is just a wrapper function
+  function displayAllMovieResults() {
+    var data = getMovieData().data;
+    renderData(data);
+  }
+  
+  // After the page's content finishes loading, call displayAllMovieResults
+  document.addEventListener('DOMContentLoaded', displayAllMovieResults);
+
+  // You could also define the function in-line, like this:
+  // document.addEventListener('DOMContentLoaded', function() {
+  //   var data = getMovieData().data;
+  //   displayMovieResults(data);
+  // });
 </script>
 
 </html>
