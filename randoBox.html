@@ -1,0 +1,124 @@
+<html>
+<head>
+    <title>(]=[)</title>
+    <style type="text/css">
+      .box {
+        margin: 30px auto;
+      }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</body>
+
+<script type="text/javascript">
+var TIME = // Chose a time interval (ex. 1 === one second; 0.5 === half a second). I like 0.075
+var SIZE = // Chose a size in pixels. I like 200.
+var PROB = 0.5;
+
+// Note: Math.random() -> random number between 0 and 1
+
+function randSec(max) {
+  // JS counts time in milliseconds...
+  var second = 1000;
+
+  // ...so generate a random 1000 millisecond number between 0 and max
+  return Math.random() * second * max;
+}
+
+function randPx(max) {
+  var number = Math.random() * max;
+  // generate a random
+  return number + 'px';
+}
+
+// Create a random hexadecimal string
+function randColor() {
+  // 16 possible hexidecimal digits
+  var letters = '0123456789ABCDEF';
+  // hexidecimals start with a #
+  var color = '#';
+
+  // Do this 6 times...
+  for (var i = 0; i < 6; i++ ) {
+    // pick a random number between 0 and 16, and round it down to the nearest whole number
+    var randomIndex = Math.floor( Math.random() * 16 );
+    // using that random number, add it to the color string
+    color += letters[randomIndex];
+  }
+  //return the resulting color
+  return color;
+}
+
+function randExec(execute) {
+  // Given a function, which we're calling "execute"...
+  if (Math.random() < PROB) {
+    // call the function if Math.random() happens to spit out a number that's less than the PROB variable (defined above)
+    execute();
+  }
+}
+
+function each(collection, doThis) {
+  for (var i = 0; i < collection.length; i++) {
+    var index = i;
+    var item = collection[i];
+    doThis(item, index);
+  }
+
+  return collection;
+}
+
+
+//////////////////////////// FILL IN THE BLANKS BELOW ////////////////////
+// every time the draw function is called, perform the following style manipulations
+function draw() {
+  var boxes = // select all items in the DOM with the "box" class
+
+  // If you're feeling ambitious:
+    // 1. delete the four box divs from the html markup
+    // 2. use javascript to create four divs
+    // 3. append the divs to the body
+
+  randExec(function() {
+    // 1. set the background color of each box to a random color using randColor
+  });
+
+  randExec(function() {
+    // 2. set the border-radius of each box to a random amount using randPx
+  });
+
+  randExec(function() {
+    // 3. set the height of each box to a random height using randPx
+  });
+
+  randExec(function() {
+    // 4. set the width of each box to a random width * 2 using randPx
+  });
+
+  // 4.5. how would you go about giving the boxes uniform heights vs. giving them their own random heights?
+
+  // 5. Use randColor to set the body's background-color to a random color
+
+  // 6. ???
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Use setInterval and randSec to call the draw function according to the TIME variable
+});
+
+// If you're feeling even more ambitious...
+  // rework the code so that each box changes shape/color on different time intervals
+
+  // impliment your own version of random color
+
+  // Google how to trigger events on key down or click
+  // Change styles based on keydown, clicks instead of using setInterval
+
+  // incorporate an input box somhow
+
+
+</script>
+</html>

@@ -25,12 +25,12 @@
 <!--
   DEBUGGING STRATEGIES:
   If you get an error message, READ THE ERROR.
-  If you are confused about any of this code at any point: 
+  If you are confused about any of this code at any point:
     - drop a debugger inside the confusing function.
     - open up Chrome dev tools (option + cmd + i).
     - reload & interact with the page.
     - use the console to play around with the code at the point where it stopped running.
-    - if the console does not immediately come up, press esc. 
+    - if the console does not immediately come up, press esc.
 -->
 <script type="text/javascript">
   // Get references to all important html elements
@@ -84,8 +84,7 @@
           gross: 775400000
         }, {
           name: 'Gone With The Wind',
-          year: 1979,
-          director:,
+          year: 1939,
           gross: 400.2
         }, {
           name: 'The Godfather Part II',
@@ -224,7 +223,7 @@
     var data = getMovieData().data;
     renderData(data);
   }
-  
+
   // After the page's content finishes loading, call displayAllMovieResults
   document.addEventListener('DOMContentLoaded', displayAllMovieResults);
 
